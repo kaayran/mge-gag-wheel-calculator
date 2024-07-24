@@ -14,6 +14,14 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 1.3rem;
 }
 
+.input-bottom-border {
+  border-bottom: 2px solid #388e3c !important;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
 html,
 body {
   height: 100%;

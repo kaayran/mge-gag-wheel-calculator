@@ -19,6 +19,11 @@
                         class="white-text validate input-bottom-border bold-text" />
                     <label class="white-text" for="donation_amount_uid">Donation</label>
                 </div>
+                <div class="input-field col s6">
+                    <input value="0" id="curr_donation_wheels_count_uid" type="number"
+                        class="white-text validate input-bottom-border bold-text" />
+                    <label class="white-text" for="curr_donation_wheels_count_uid">Current wheels</label>
+                </div>
             </div>
             <div class="row">
                 <div class="col s12">
@@ -37,14 +42,14 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    <input disabled id="wheels_count_uid" type="number"
+                    <input disabled value="0" id="wheels_count_uid" type="number"
                         class="white-text input-bottom-border bold-text">
                     <label class="white-text" for="wheels_count_uid">Wheel's count</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
-                    <input disabled id="donation_change_uid" type="number"
+                    <input disabled value="0" id="donation_change_uid" type="number"
                         class="white-text input-bottom-border bold-text">
                     <label class="white-text" for="donation_change_uid">Donation change</label>
                 </div>
@@ -63,8 +68,10 @@
     <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
 
     <script>
-        const DONATION_WHEEL_START_PRICE = 500
-        const DONATION_WHEEL_MIDAS_HAND_PRICE = 1500
+        const WHEEL_START_PRICE = 500
+        const WHEEL_PRICE_INCREMENT = 500
+        const MIDAS_HAND_WHEEL_PRICE = 1500
+        const MIDAS_HAND_START_CHARGES = 3
 
         class DonationWheelsData {
             constructor(wheelsCount, donationChange, nextWheelPrice) {
@@ -82,24 +89,59 @@
             }
         }
 
+        class DonationMidasBonus {
+            constructor(isActive) {
+                if (isActive) {
+                    this.charges = MIDAS_HAND_START_CHARGES
+                } else {
+                    this.charges = 0
+                }
+            }
+
+            tryUseCharges() {
+                return this.charges-- > 0
+            }
+
+            hasCharges() {
+                return this.charges > 0
+            }
+        }
+
         document.getElementById("check_button_uid").addEventListener("click", function () {
             let donationAmount = document.getElementById("donation_amount_uid").value
-            let donationData = calculateWheelsCount(donationAmount)
+            let currWheelsCount = document.getElementById("curr_donation_wheels_count_uid").value
+            let donationData = calculateWheelsCount(donationAmount, currWheelsCount)
 
             document.getElementById("wheels_count_uid").value = donationData.wheelsCount
             document.getElementById("donation_change_uid").value = donationData.donationChange
             document.getElementById("next_wheel_price_uid").value = donationData.nextWheelPrice
         });
 
-        function calculateWheelsCount(inDonationAmount) {
+        document.addEventListener('DOMContentLoaded', setDefaultNextWheelPrice);
+
+        document.getElementById("curr_donation_wheels_count_uid").addEventListener("change", setDefaultNextWheelPrice)
+        document.getElementById("midas_uid").addEventListener("change", setDefaultNextWheelPrice)
+
+        function calculateWheelsCount(inDonationAmount, inCurrWheelsCount) {
+            let midas = new DonationMidasBonus(isMidasActive())
+
             let donationLeft = inDonationAmount
-            let wheelPrice = DONATION_WHEEL_START_PRICE
-            let wheelsCount = 0
+            let wheelsCount = inCurrWheelsCount
+            let wheelPrice = midas.tryUseCharges() ? MIDAS_HAND_WHEEL_PRICE : getActualWheelPrice(wheelsCount)
+            let wasLastMidasCharge = !midas.hasCharges()
 
             while (donationLeft >= wheelPrice) {
                 wheelsCount++
                 donationLeft -= wheelPrice
-                wheelPrice += DONATION_WHEEL_START_PRICE
+
+                if (midas.tryUseCharges()) {
+                    wheelPrice = MIDAS_HAND_WHEEL_PRICE
+                } else if (!wasLastMidasCharge) {
+                    wasLastMidasCharge = true
+                    wheelPrice = WHEEL_START_PRICE
+                } else if (wasLastMidasCharge) {
+                    wheelPrice += WHEEL_PRICE_INCREMENT
+                }
             }
 
             return new DonationWheelsData(wheelsCount, donationLeft, wheelPrice)
@@ -107,6 +149,16 @@
 
         function isMidasActive() {
             return document.getElementById("midas_uid").checked
+        }
+
+        function getActualWheelPrice(wheelCount) {
+            return WHEEL_START_PRICE + wheelCount * WHEEL_PRICE_INCREMENT
+        }
+
+        function setDefaultNextWheelPrice() {
+            let wheelCount = document.getElementById("curr_donation_wheels_count_uid").value
+            let nextWheelPrice = isMidasActive() ? MIDAS_HAND_WHEEL_PRICE : getActualWheelPrice(wheelCount)
+            document.getElementById("next_wheel_price_uid").value = nextWheelPrice
         }
 
     </script>

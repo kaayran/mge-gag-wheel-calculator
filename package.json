@@ -1,20 +1,20 @@
 {
-  "name": "mge-gag-wheel-calculator",
-  "version": "1.0.0",
-  "description": "A tool to calculate the number of gag wheels depending on the number of donations and special conditions",
-  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "echo \"This template does not include a test runner by default.\" && exit 1",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "canvas-confetti": "^1.2.0"
+  },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "mockdate": "^3.0.5",
-    "ts-jest": "^29.2.3",
-    "ts-node": "^10.9.2"
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@types/canvas-confetti": "^1.0.0",
+    "@types/snowpack-env": "^2.3.3",
+    "prettier": "^2.2.1",
+    "snowpack": "^3.3.7",
+    "typescript": "^4.2.4"
   }
 }

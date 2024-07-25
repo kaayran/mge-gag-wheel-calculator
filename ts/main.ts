@@ -1,59 +1,11 @@
-const WHEEL_START_PRICE = 500;
-const WHEEL_PRICE_INCREMENT = 500;
-const WHEEL_COUNT_MAX = 35;
-const MIDAS_HAND_WHEEL_PRICE = 1500;
-const MIDAS_HAND_START_CHARGES = 3;
-
-class DonationWheelsData {
-  wheelsCount: number;
-  donationChange: number;
-  nextWheelPrice: number;
-
-  constructor(
-    wheelsCount: number,
-    donationChange: number,
-    nextWheelPrice: number
-  ) {
-    this.wheelsCount = wheelsCount;
-    this.donationChange = this.tryGetDonationChangeValue(donationChange);
-    this.nextWheelPrice = nextWheelPrice;
-  }
-
-  tryGetDonationChangeValue(inDonationChange: number) {
-    return inDonationChange;
-  }
-}
-
-class DonationMidasBonus {
-  maxCharges: number;
-  currentCharges: number;
-
-  constructor(isActive: boolean) {
-    if (isActive) {
-      this.maxCharges = MIDAS_HAND_START_CHARGES;
-    } else {
-      this.maxCharges = 0;
-    }
-
-    this.currentCharges = this.maxCharges;
-  }
-
-  tryUseCharges(): boolean {
-    if (this.currentCharges == 0) {
-      return false;
-    }
-
-    return this.currentCharges-- > 0;
-  }
-
-  hasCharges(): boolean {
-    return this.currentCharges > 0;
-  }
-
-  getChargesSpent(): number {
-    return this.maxCharges - this.currentCharges;
-  }
-}
+import { DonationMidasBonus } from "./DonationMidasBonus";
+import { DonationWheelsData } from "./DonationWheelsData";
+import { getWheelPrice } from "./wheel_utils";
+import {
+  MIDAS_HAND_WHEEL_PRICE,
+  WHEEL_COUNT_MAX,
+  WHEEL_START_PRICE,
+} from "./consts";
 
 document
   .getElementById("check_button_uid")
@@ -122,17 +74,6 @@ function isMidasActive() {
   return document.getElementById<HTMLInputElement>("midas_uid").checked;
 }
 
-function getWheelPrice(wheelCount: number) {
-  if (wheelCount <= WHEEL_COUNT_MAX) {
-    return WHEEL_START_PRICE + (wheelCount - 1) * WHEEL_PRICE_INCREMENT;
-  }
-
-  return (
-    WHEEL_START_PRICE +
-    (wheelCount - WHEEL_COUNT_MAX - 1) * WHEEL_PRICE_INCREMENT
-  );
-}
-
 function setNextWheelPrice() {
   let wheelsCount = document.getElementById<HTMLInputElement>(
     "curr_donation_wheels_count_uid"
@@ -146,8 +87,4 @@ function setNextWheelPrice() {
 
   document.getElementById<HTMLInputElement>("next_wheel_price_uid").value =
     nextWheelPrice.toString();
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
 }

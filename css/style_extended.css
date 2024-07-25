@@ -22,6 +22,12 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
+.row {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
 html,
 body {
   height: 100%;

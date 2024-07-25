@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./js",
+    "strictNullChecks": false,
+    "sourceMap": true
+  },
+  "include": ["ts/main.ts", "ts/global.d.ts"]
+}

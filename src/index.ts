@@ -17,7 +17,7 @@ currWheelsCountElem.addEventListener("change", handleInputElementsChange);
 midasElem.addEventListener("change", handleInputElementsChange);
 
 function setNextWheelPrice() {
-  let wheelsCount = currWheelsCountElem.valueAsNumber;
+  let wheelsCount = currWheelsCountElem.valueAsNumber || 0;
 
   wheelsCount = wheelsCount % WHEEL_COUNT_MAX;
 
@@ -26,8 +26,8 @@ function setNextWheelPrice() {
 }
 
 function handleInputElementsChange() {
-  let donationAmount = donationAmountElem.valueAsNumber;
-  let currWheelsCount = currWheelsCountElem.valueAsNumber;
+  let donationAmount = donationAmountElem.valueAsNumber || 0;
+  let currWheelsCount = currWheelsCountElem.valueAsNumber || 0;
   let useMidas = isMidasActive();
 
   let donationData = calculateWheelsCount(donationAmount, currWheelsCount, useMidas);

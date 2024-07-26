@@ -1,5 +1,5 @@
 {
-  "include": ["src", "types"],
+  "include": ["src", "types", "src/tests"],
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
@@ -7,7 +7,6 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "allowSyntheticDefaultImports": true,
-    "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,

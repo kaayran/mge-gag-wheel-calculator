@@ -8,7 +8,7 @@
 
 Is open source tool for calculating the number of spins of the gag wheel for the MGE event.
 
-_Инструмент с открытым исходным кодом для подсчета количества вращений колеса прикола для события MGE._
+_Инструмент с открытым исходным кодом для подсчета количества вращений колеса приколов для ивента MGE._
 
 Thanks to: [Creators of MGE][mge-family]
 

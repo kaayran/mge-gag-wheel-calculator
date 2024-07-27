@@ -1,3 +1,4 @@
+import { animateElement } from "./animations";
 import {
   checkButtonElem,
   donationAmountElem,
@@ -32,7 +33,7 @@ function handleInputElementsChange() {
 
   let donationData = calculateWheelsCount(donationAmount, currWheelsCount, useMidas);
 
-  wheelCountElem.value = donationData.wheelsCount.toString();
-  donationLeftElem.value = donationData.donationLeft.toString();
-  nextWheelPriceElem.value = donationData.nextWheelPrice.toString();
+  animateElement(wheelCountElem, wheelCountElem.valueAsNumber || 0, donationData.wheelsCount);
+  animateElement(donationLeftElem, donationLeftElem.valueAsNumber || 0, donationData.donationLeft);
+  animateElement(nextWheelPriceElem, nextWheelPriceElem.valueAsNumber || 0, donationData.nextWheelPrice);
 }

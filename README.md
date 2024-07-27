@@ -12,4 +12,13 @@ _Инструмент с открытым исходным кодом для п�
 
 Thanks to: [Creators of MGE][mge-family]
 
+# Technologies Used
+
+- **Frontend**:
+
+  - TypeScript
+  - Materialize
+  - Snowpack
+  - jest
+
 [mge-family]: https://mge.family/

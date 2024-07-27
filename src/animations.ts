@@ -1,5 +1,5 @@
 export function animateElement(element: HTMLInputElement, currValue: number, targetValue: number) {
-  let step = Math.ceil(Math.abs(targetValue - currValue) / 100);
+  let step = Math.ceil(Math.abs(targetValue - currValue) / 50);
 
   const increment = () => {
     if (currValue < targetValue) {

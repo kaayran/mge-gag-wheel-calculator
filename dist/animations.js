@@ -1,5 +1,5 @@
 export function animateElement(element, currValue, targetValue) {
-  let step = Math.ceil(Math.abs(targetValue - currValue) / 100);
+  let step = Math.ceil(Math.abs(targetValue - currValue) / 50);
   const increment = () => {
     if (currValue < targetValue) {
       currValue += step;

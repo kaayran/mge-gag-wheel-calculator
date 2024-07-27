@@ -10,13 +10,9 @@
     "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
-    "@babel/preset-env": "^7.24.8",
-    "@babel/preset-typescript": "^7.24.7",
     "@snowpack/plugin-typescript": "^1.2.1",
     "@types/jest": "^29.5.12",
     "@types/snowpack-env": "^2.3.3",
-    "babel-jest": "^29.7.0",
     "gh-pages": "^6.1.1",
     "prettier": "^2.2.1",
     "snowpack": "^3.3.7",

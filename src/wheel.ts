@@ -16,7 +16,7 @@ export function calculateWheelsCount(
 ): DonationWheelsData {
   let midas = new DonationMidasBonus(useMidas);
 
-  let donationLeft = Math.floor(inDonation);
+  let donationLeft = inDonation;
   let wheelsCount = Math.floor(inCurrWheelsCount);
 
   let wheelPrice = midas.tryUseCharges() ? MIDAS_HAND_WHEEL_PRICE : getWheelPrice(wheelsCount + 1);
